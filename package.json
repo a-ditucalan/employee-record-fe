@@ -1,0 +1,60 @@
+{
+  "name": "/",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@material-ui/core": "^4.11.2",
+    "@material-ui/lab": "^4.0.0-alpha.57",
+    "axios": "^0.21.0",
+    "babel-eslint": "10.0.3",
+    "bootstrap-less": "^3.3.8",
+    "eslint": "^6.8.0",
+    "eslint-config-prettier": "^6.10.0",
+    "eslint-plugin-prettier": "^3.1.2",
+    "prettier": "^1.19.1",
+    "react": "^16.12.0",
+    "react-dom": "^16.8.6",
+    "react-id-swiper": "^3.0.0",
+    "react-js-pagination": "^3.0.3",
+    "react-paginate": "^6.5.0",
+    "react-redux": "^7.2.2",
+    "react-responsive-modal": "^6.0.0",
+    "react-router-dom": "^5.0.0",
+    "react-scripts": "3.4.0",
+    "redux-thunk": "^2.3.0",
+    "semantic-ui-css": "^2.4.1",
+    "semantic-ui-react": "^0.88.2",
+    "styled-components": "^5.2.1",
+    "stylelint": "^13.2.0",
+    "stylelint-order": "^4.0.0",
+    "stylelint-webpack-plugin": "^1.2.3",
+    "swiper": "^5.3.6",
+    "webpack": "4.41.5",
+    "webpack-cli": "^3.3.11"
+  },
+  "scripts": {
+    "start": "react-app-rewired start",
+    "predeploy": "yarn run build",
+    "deploy": "gh-pages -d build",
+    "build": "react-app-rewired build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ],
+  "devDependencies": {
+    "gh-pages": "^2.0.1",
+    "node-sass": "^4.11.0",
+    "postcss-cssnext": "^3.1.0",
+    "postcss-loader": "^3.0.0",
+    "react-app-rewired": "^2.1.5",
+    "react-hot-loader": "^4.8.2"
+  }
+}

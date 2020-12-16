@@ -1,0 +1,10 @@
+const API_URL = 'http://localhost:5000/api/'
+
+export const GET_ALL_EMPLOYEE = API_URL + 'employee'
+export const GET_ALL_EMPLOYEES = API_URL + 'employee/all'
+export const ADD_EMPLOYEE = API_URL + 'employee/store'
+export const GET_EMPLOYEE = API_URL + 'employee/show'
+export const UPDATE_EMPLOYEE = API_URL + 'employee/update'
+export const DELETE_EMPLOYEE = API_URL + 'employee/delete'
+export const LOGIN_USER = API_URL + 'login'
+export const REGISTER_USER = API_URL + 'register'
