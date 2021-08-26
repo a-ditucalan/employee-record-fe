@@ -5,6 +5,7 @@ import { hot } from 'react-hot-loader'
 import Header from './components/header'
 import Footer from './components/footer'
 import Home from './containers/home'
+import Arrow from './containers/arrow'
 import Dashboard from './containers/dashboard'
 import NoRouteMatch from './containers/404'
 class App extends Component {
@@ -17,6 +18,7 @@ class App extends Component {
           <Switch>
             <Route path="/" exact component={Home} />
             <Route path="/dashboard" component={Dashboard} />
+            <Route path="/arrow" component={Arrow} />
             <Route component={NoRouteMatch} />
           </Switch>
 
