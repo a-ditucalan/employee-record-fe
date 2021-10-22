@@ -1,12 +1,9 @@
 import React, { useState, useEffect } from 'react'
-import {Helmet} from "react-helmet";
+import { Helmet } from 'react-helmet'
 import Banner from '../common/Banner'
 import '../stylesheets/main.scss'
 
-import {
-
-  makeStyles
-} from '@material-ui/core'
+import { makeStyles } from '@material-ui/core'
 import Services from '../common/Services'
 import OurWarehouse from '../common/OurWarehouse'
 import OurServices from '../common/OurServices'
@@ -32,12 +29,15 @@ const Home = () => {
 
   return (
     <>
-    <Helmet>
-      <meta charSet="utf-8" />
-      <title>Bigbox Import Service</title>
-      <meta property="og:image" content="https://bigboximportservice.com/static/media/post1.42e1dea0.jpg" />
-       <link rel="canonical" href="https://bigboximportservice.com" />
-    </Helmet>
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>Bigbox Import Service</title>
+        <meta
+          property="og:image"
+          content="https://bigboximportservice.com/static/media/post1.42e1dea0.jpg"
+        />
+        <link rel="canonical" href="https://bigboximportservice.com" />
+      </Helmet>
 
       <Banner />
       <Services />
