@@ -1,4 +1,5 @@
 {
+  "homepage":"/",
   "name": "bigbox-app-deployment",
   "version": "0.1.0",
   "private": true,
