@@ -35,6 +35,7 @@ const Home = () => {
     <Helmet>
       <meta charSet="utf-8" />
       <title>Bigbox Import Service</title>
+      <meta property="og:image" content="https://bigboximportservice.com/static/media/post1.42e1dea0.jpg" />
        <link rel="canonical" href="https://bigboximportservice.com" />
     </Helmet>
 
