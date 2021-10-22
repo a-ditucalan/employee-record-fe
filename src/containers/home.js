@@ -1,16 +1,10 @@
 import React, { useState, useEffect } from 'react'
-import { useDispatch } from 'react-redux'
+import {Helmet} from "react-helmet";
 import Banner from '../common/Banner'
 import '../stylesheets/main.scss'
-import styled from 'styled-components'
-import { Form } from 'react-final-form'
-import { TextField, Checkboxes } from 'mui-rff'
+
 import {
-  Button,
-  Box,
-  Grid,
-  Typography,
-  CircularProgress,
+
   makeStyles
 } from '@material-ui/core'
 import Services from '../common/Services'
@@ -38,6 +32,12 @@ const Home = () => {
 
   return (
     <>
+    <Helmet>
+      <meta charSet="utf-8" />
+      <title>Bigbox Import Service</title>
+       <link rel="canonical" href="https://bigboximportservice.com" />
+    </Helmet>
+
       <Banner />
       <Services />
       <OurWarehouse />
