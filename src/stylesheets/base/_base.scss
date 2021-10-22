@@ -11,12 +11,15 @@ button {
   cursor: pointer;
 }
 
-a {
+a,h1,h2,h3,p{
+  font-family: $font-poppins;
   text-decoration: none;
 }
 
 .btn,
 a {
+  font-family: $font-poppins;
+
   -webkit-transition: all .2s ease-in-out;
   transition: all .2s ease-in-out;
 

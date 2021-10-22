@@ -1,9 +1,14 @@
 import React, { useState, useEffect } from 'react'
 import 'react-responsive-modal/styles.css'
-import * as ACTION_EMP from '../store/action/employeeAction'
+import * as ACTION_ITEM from '../store/action/itemAction'
 import styled from 'styled-components'
 import { useDispatch, useSelector } from 'react-redux'
 import { Modal } from 'react-responsive-modal'
+import DropdownClearable from './CommonDropdown'
+
+import MenuItem from '@material-ui/core/MenuItem'
+
+import Select from '@material-ui/core/Select'
 
 const ModalWrapper = styled.div`
   display: flex;
@@ -40,111 +45,185 @@ const Button = styled.button`
 `
 const ModalCommon = ({ open, onCloseModal, modalState, getId }) => {
   const dispatch = useDispatch()
-  const employeeData = useSelector(state => state.employee)
-  const [newEmp, setNewEmp] = useState(employeeData.selectedEmployee)
+  const itemData = useSelector(state => state.item)
+  const [newItem, setNewItem] = useState(itemData.seletedItem)
 
   const onChangeInput = e => {
     const name = e.target.name
     const value = e.target.value
-    setNewEmp({
-      ...newEmp,
+    setNewItem({
+      ...newItem,
       [name]: value
     })
   }
 
   useEffect(() => {
-    setNewEmp(employeeData.selectedEmployee)
-  }, [employeeData.selectedEmployee])
+    setNewItem(itemData.selectedItem)
+  }, [itemData.selectedItem])
 
   const onSave = () => {
-    dispatch(ACTION_EMP.addEmployee(newEmp))
+    dispatch(ACTION_ITEM.addItem(newItem))
     onCloseModal()
   }
 
   const onEdit = () => {
-    dispatch(ACTION_EMP.updateEmployee(newEmp))
+    dispatch(ACTION_ITEM.updateItem(newItem))
     onCloseModal()
   }
 
   const onDelete = id => {
     const data = {
-      employeeID: id
+      itemID: id
     }
-    dispatch(ACTION_EMP.deleteEmployee(data))
+    dispatch(ACTION_ITEM.deleteItem(data))
   }
 
   return (
     <Modal open={open} onClose={onCloseModal} center>
       {modalState === 'add' ? (
         <ModalWrapper>
-          <H4>Name:</H4>
-          <Input name="name" type="text" onChange={e => onChangeInput(e)} />
-          <H4>Designation:</H4>
+          <H4>Status:</H4>
+          <Select
+            name="status"
+            // value={this.state.age}
+            onChange={e => onChangeInput(e)}
+          >
+            <MenuItem value={'Guangzhou warehouse'}>
+              Guangzhou warehouse
+            </MenuItem>
+            <MenuItem value={'Yiwu warehouse'}>Yiwu warehouse</MenuItem>
+            <MenuItem value={'In Transit to PH'}>In Transit to PH</MenuItem>
+            <MenuItem value={'Custom Clearance'}>Custom Clearance</MenuItem>
+            <MenuItem value={'Bulacan Warehouse'}>Bulacan Warehouse</MenuItem>
+          </Select>
+
+          <H4>Shipping Mark:</H4>
           <Input
-            name="designation"
+            name="shippingMark"
             type="text"
             onChange={e => onChangeInput(e)}
           />
-          <H4>Email:</H4>
-          <Input name="email" type="text" onChange={e => onChangeInput(e)} />
-          <H4>Phone:</H4>
-          <Input name="phone" type="text" onChange={e => onChangeInput(e)} />
-          <H4>Age:</H4>
-          <Input name="age" type="text" onChange={e => onChangeInput(e)} />
-          <Button disabled={newEmp.name ? false : true} onClick={onSave}>
+          <H4>Item Name:</H4>
+          <Input name="itemName" type="text" onChange={e => onChangeInput(e)} />
+          <H4>cbm:</H4>
+          <Input name="cbm" type="number" onChange={e => onChangeInput(e)} />
+          <H4>Kilo:</H4>
+          <Input name="kilo" type="number" onChange={e => onChangeInput(e)} />
+          <H4>Number of Box:</H4>
+          <Input
+            name="numberOfBox"
+            type="number"
+            onChange={e => onChangeInput(e)}
+          />
+          <H4>Tracking Number:</H4>
+          <Input
+            name="trackingNumber"
+            type="text"
+            onChange={e => onChangeInput(e)}
+          />
+          <H4>Notes:</H4>
+          <Input name="notes" type="text" onChange={e => onChangeInput(e)} />
+          <Button
+            // disabled={newItem.shippingMark ? false : true}
+            onClick={onSave}
+          >
             Save
           </Button>
         </ModalWrapper>
       ) : modalState === 'edit' ? (
-        <ModalWrapper>
-          <H4>Name:</H4>
-          <Input
-            name="name"
-            type="text"
-            value={newEmp.name}
-            onChange={e => onChangeInput(e)}
-          />
-          <H4>Designation:</H4>
-          <Input
-            name="designation"
-            type="text"
-            value={newEmp.designation}
-            onChange={e => onChangeInput(e)}
-          />
-          <H4>Email:</H4>
-          <Input
-            name="email"
-            type="text"
-            value={newEmp.email}
-            onChange={e => onChangeInput(e)}
-          />
-          <H4>Phone:</H4>
-          <Input
-            name="phone"
-            type="text"
-            value={newEmp.phone}
-            onChange={e => onChangeInput(e)}
-          />
-          <H4>Age:</H4>
-          <Input
-            name="age"
-            type="text"
-            value={newEmp.age}
-            onChange={e => onChangeInput(e)}
-          />
-          <Button
-            disabled={employeeData.selectedEmployee.name ? false : true}
-            onClick={onEdit}
-          >
-            Update
-          </Button>
-          <Button
-            disabled={employeeData.selectedEmployee.name ? false : true}
-            onClick={() => onDelete(employeeData.selectedEmployee._id)}
-          >
-            Delete
-          </Button>
-        </ModalWrapper>
+        <>
+          {newItem ? (
+            <>
+              <ModalWrapper>
+                <H4>Status:</H4>
+                <Select
+                  name="status"
+                  value={newItem.status}
+                  renderValue={value => value}
+                  onChange={e => onChangeInput(e)}
+                >
+                  <MenuItem value={'Guangzhou warehouse'}>
+                    Guangzhou warehouse
+                  </MenuItem>
+                  <MenuItem value={'Yiwu warehouse'}>Yiwu warehouse</MenuItem>
+                  <MenuItem value={'In Transit to PH'}>
+                    In Transit to PH
+                  </MenuItem>
+                  <MenuItem value={'Custom Clearance'}>
+                    Custom Clearance
+                  </MenuItem>
+                  <MenuItem value={'Bulacan Warehouse'}>
+                    Bulacan Warehouse
+                  </MenuItem>
+                </Select>
+
+                <H4>Shipping Mark:</H4>
+                <Input
+                  name="shippingMark"
+                  value={newItem.shippingMark}
+                  type="text"
+                  onChange={e => onChangeInput(e)}
+                />
+                <H4>Item Name:</H4>
+                <Input
+                  name="itemName"
+                  value={newItem.itemName}
+                  type="text"
+                  onChange={e => onChangeInput(e)}
+                />
+                <H4>cbm:</H4>
+                <Input
+                  name="cbm"
+                  type="number"
+                  value={newItem.cbm}
+                  onChange={e => onChangeInput(e)}
+                />
+                <H4>Kilo:</H4>
+                <Input
+                  name="kilo"
+                  type="number"
+                  value={newItem.kilo}
+                  onChange={e => onChangeInput(e)}
+                />
+                <H4>Number of Box:</H4>
+                <Input
+                  name="numberOfBox"
+                  type="number"
+                  value={newItem.numberOfBox}
+                  onChange={e => onChangeInput(e)}
+                />
+                <H4>Tracking Number:</H4>
+                <Input
+                  name="trackingNumber"
+                  type="text"
+                  value={newItem.trackingNumber}
+                  onChange={e => onChangeInput(e)}
+                />
+                <H4>Notes:</H4>
+                <Input
+                  name="notes"
+                  type="text"
+                  value={newItem.notes}
+                  onChange={e => onChangeInput(e)}
+                />
+                <Button
+                  // disabled={itemData.seletedItem ? false : true}
+                  onClick={onEdit}
+                >
+                  Update
+                </Button>
+                <Button
+                  disabled={itemData.selectedItem ? false : true}
+                  onClick={() => onDelete(itemData.selectedItem._id)}
+                >
+                  Delete
+                </Button>
+              </ModalWrapper>
+            </>
+          ) : (
+            <div>anuar</div>
+          )}
+        </>
       ) : null}
     </Modal>
   )

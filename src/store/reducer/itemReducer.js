@@ -3,32 +3,32 @@
 import * as ACTION from '../action/action_type'
 
 const initialState = {
-  selectedEmployee: {},
-  employee: '',
+  selecteditem: '',
+  item: '',
   query: {
-    limit: 5,
+    limit: 20,
     page: 1,
     search: ''
   },
-  employeeAll: ''
+  itemAll: ''
 }
 
 export default function(state = initialState, action) {
   switch (action.type) {
-    case ACTION.GET_ALL_EMPLOYEE:
+    case ACTION.GET_ALL_ITEM:
       return {
         ...state,
-        employee: action.payload
+        item: action.payload
       }
-    case ACTION.GET_EMPLOYEE:
+    case ACTION.GET_ITEM:
       return {
         ...state,
-        selectedEmployee: action.payload
+        selectedItem: action.payload
       }
-    case ACTION.GET_ALL_EMPLOYEES:
+    case ACTION.GET_ALL_ITEMS:
       return {
         ...state,
-        employeeAll: action.payload
+        itemAll: action.payload
       }
     case ACTION.PAGINATION:
       return {
@@ -38,7 +38,7 @@ export default function(state = initialState, action) {
           page: action.payload
         }
       }
-    case ACTION.SEARCH_EMPLOYEE:
+    case ACTION.SEARCH_ITEM:
       console.log(action.payload, 'paylos')
       return {
         ...state,

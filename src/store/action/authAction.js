@@ -1,11 +1,11 @@
 import axios from 'axios'
 import * as ACTION from './action_type'
-
+import { toast } from 'react-toastify'
 import * as API from '../../utils/constant'
 
 export const login = info => dispatch => {
   axios
-    .post(API.LOGIN_USER, { username: info.username, password: info.password })
+    .post(API.LOGIN_USER, { username: info.email, password: info.password })
     .then(res => {
       localStorage.setItem('token', res.data.token)
       dispatch({
@@ -16,6 +16,7 @@ export const login = info => dispatch => {
     })
     .catch(err => {
       console.log(err)
+      toast.error('Invalid user')
     })
 }
 
@@ -28,4 +29,10 @@ export const register = info => dispatch => {
     .catch(err => {
       console.log(err)
     })
+}
+
+export const logout = () => dispatch => {
+  dispatch({
+    type: ACTION.LOG_OUT
+  })
 }

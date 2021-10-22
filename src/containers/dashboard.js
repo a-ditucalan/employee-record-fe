@@ -3,12 +3,19 @@ import { Link, useHistory } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import ReactPaginate from 'react-paginate'
 import * as ACTION from '../store/action/authAction'
-import * as ACTION_EMP from '../store/action/employeeAction'
-import ModalCommon from '../common/ModalCommon'
+import * as ACTION_ITEM from '../store/action/itemAction'
+// import ModalCommon from '../common/ModalCommon'
+import { Grid } from '@material-ui/core'
 import Table from '../common/Table'
 import Pagination from '@material-ui/lab/Pagination'
 import styled from 'styled-components'
-
+import TextField from '@material-ui/core/TextField'
+import Dialog from '@material-ui/core/Dialog'
+import DialogActions from '@material-ui/core/DialogActions'
+import DialogContent from '@material-ui/core/DialogContent'
+import DialogContentText from '@material-ui/core/DialogContentText'
+import DialogTitle from '@material-ui/core/DialogTitle'
+import ModalCommon from '../common/ModalCommon'
 const H4 = styled.p`
   margin-top: 10px;
   font-size: 16px;
@@ -60,83 +67,58 @@ const Dashboard = () => {
   const dispatch = useDispatch()
   const history = useHistory()
   const auth = useSelector(state => state.auth)
-  const employeeData = useSelector(state => state.employee)
+  const itemData = useSelector(state => state.item)
 
+  const handleClickOpen = () => {
+    setOpen(true)
+    setModalState('add')
+  }
+
+  const handleClose = () => {
+    setOpen(false)
+  }
+
+  const onGetId = idx => {
+    dispatch(ACTION_ITEM.getSpecificItem(idx))
+    setModalState('edit')
+    setOpen(true)
+  }
+
+  console.log(modalState, 'STATE')
   useEffect(() => {
     if (!auth.token) {
       history.push('/')
     }
-    dispatch(ACTION_EMP.getEmployees())
-    dispatch(ACTION_EMP.getEmployee())
+    dispatch(ACTION_ITEM.getItems())
   }, [auth.token, dispatch, history])
-
-  const onOpenModal = () => setOpen(true)
-  const onCloseModal = () => {
-    dispatch(ACTION_EMP.getEmployee())
-
-    setOpen(false)
-  }
-
-  const onGetId = async data => {
-    await dispatch(ACTION_EMP.getSpecificEmployee(data))
-    await onOpenModal(true)
-    await setModalState('edit')
-    await setGetId(data)
-  }
-
-  const onAddEmployee = () => {
-    setModalState('add')
-    onOpenModal(true)
-  }
-
-  const handlePagination = page => {
-    dispatch(ACTION_EMP.setPaginationPage(page))
-    dispatch(ACTION_EMP.getEmployee())
-  }
-  const onSearch = e => {
-    setSearch(e.target.value)
-  }
-
-  const onSubmitSearch = () => {
-    dispatch(ACTION_EMP.onSearchEmployee(search))
-    dispatch(ACTION_EMP.getEmployee())
-  }
 
   return (
     <div>
-      <Button onClick={onAddEmployee}>Add Employee</Button>
-      <H4>Search:</H4>
-      <SearchWrapper>
-        <Input
-          placeholder="Search"
-          value={search}
-          onChange={e => onSearch(e)}
-        />
-        <ButtonSearch onClick={onSubmitSearch}>Search</ButtonSearch>
-      </SearchWrapper>
-
-      {employeeData.employee && (
-        <>
-          <Table data={employeeData.employee} onGetId={onGetId} />
-          <Pagination
-            count={
-              !employeeData.employee.employeeAll
-                ? Math.ceil(
-                    employeeData.employeeAll.length / employeeData.query.limit
-                  )
-                : 1
-            }
-            onChange={(event, page) => handlePagination(page)}
-            // page={!!request.table ? request.table.page_number : 0}
+      <Grid container spacing={1}>
+        <Button onClick={() => handleClickOpen()}>Shipment Items</Button>
+        {itemData.item ? (
+          <Table
+            data={itemData.item}
+            title={[
+              'Shipping Mark',
+              'Tracking Number',
+              'Item Name',
+              'CBM',
+              'Kilo',
+              'Status'
+            ]}
+            onGetId={onGetId}
           />
-        </>
-      )}
-      <ModalCommon
-        open={open}
-        getId={getId}
-        modalState={modalState}
-        onCloseModal={onCloseModal}
-      />
+        ) : (
+          <> </>
+        )}
+
+        <ModalCommon
+          open={open}
+          onCloseModal={handleClose}
+          modalState={modalState}
+        />
+      </Grid>
     </div>
   )
 }

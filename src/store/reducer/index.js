@@ -1,9 +1,9 @@
 import { combineReducers } from 'redux'
 
 import authReducer from './authReducer'
-import employeeReducer from './employeeReducer'
+import itemReducer from './itemReducer'
 
 export default combineReducers({
   auth: authReducer,
-  employee: employeeReducer
+  item: itemReducer
 })

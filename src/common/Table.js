@@ -50,9 +50,9 @@ const StyledTable = styled.table`
   }
 `
 
-const TableMarkup = ({ titles, data, onClickEmployee }) => (
+const TableMarkup = ({ titles, data, onClick }) => (
   <StyledTable>
-    <caption>Employee Records</caption>
+    <caption>Shipping Records</caption>
     <colgroup>
       <col />
       <col />
@@ -67,28 +67,26 @@ const TableMarkup = ({ titles, data, onClickEmployee }) => (
     </thead>
     <tbody>
       {data.map((item, index) => (
-        <tr key={index} name={item._id} onClick={e => onClickEmployee(e)}>
-          {titles.map((title, index) => (
-            <td key={index}>{item[title]}</td>
-          ))}
+        <tr key={index} onClick={onClick} name={item._id}>
+          <td>{item.shippingMark}</td>
+          <td>{item.trackingNumber}</td>
+          <td>{item.itemName}</td>
+          <td>{item.cbm}</td>
+          <td>{item.kilo}</td>
+          <td>{item.status}</td>
         </tr>
       ))}
     </tbody>
   </StyledTable>
 )
 
-const Table = ({ data, onGetId }) => {
-  const onClickEmployee = e => {
+const Table = ({ data, title, onGetId }) => {
+  const onClickItem = e => {
     const idx = e.target.parentNode.getAttribute('name')
+
     onGetId(idx)
   }
-  return (
-    <TableMarkup
-      onClickEmployee={onClickEmployee}
-      titles={Object.keys(data[0])}
-      data={data}
-    />
-  )
+  return <TableMarkup onClick={onClickItem} titles={title} data={data} />
 }
 
 export default Table

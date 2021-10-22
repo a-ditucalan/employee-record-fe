@@ -30,6 +30,15 @@ export default function(state = initialState, action) {
         isAuthenticated: true,
         isLoading: false
       }
+    case ACTION.LOG_OUT:
+      return {
+        ...state,
+        token: '',
+        isAuthenticated: false,
+        isLoading: false,
+        user: null,
+        userProfile: {}
+      }
     default:
       return state
   }

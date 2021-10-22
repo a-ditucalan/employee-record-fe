@@ -3,16 +3,17 @@ import * as ACTION from './action_type'
 
 import * as API from '../../utils/constant'
 
-export const getEmployee = () => (dispatch, getState) => {
-  const { page, limit, search } = getState().employee.query
+export const getItems = () => (dispatch, getState) => {
+  const { page, limit, search } = getState().item.query
 
   axios
     .get(
-      API.GET_ALL_EMPLOYEE + `/?limit=${limit}&page=${page}&search=${search}`
+      API.GET_ALL_ITEM + `/?limit=${limit}&page=${page}&search=${search}`,
+      tokenConfig(getState)
     )
     .then(res => {
       dispatch({
-        type: ACTION.GET_ALL_EMPLOYEE,
+        type: ACTION.GET_ALL_ITEM,
 
         payload: res.data.response
       })
@@ -22,12 +23,12 @@ export const getEmployee = () => (dispatch, getState) => {
     })
 }
 
-export const getEmployees = () => (dispatch, getState) => {
+export const getItem = () => (dispatch, getState) => {
   axios
-    .get(API.GET_ALL_EMPLOYEES)
+    .get(API.GET_ITEM)
     .then(res => {
       dispatch({
-        type: ACTION.GET_ALL_EMPLOYEES,
+        type: ACTION.GET_ITEM,
 
         payload: res.data.response
       })
@@ -37,44 +38,47 @@ export const getEmployees = () => (dispatch, getState) => {
     })
 }
 
-export const addEmployee = data => (dispatch, getState) => {
+export const addItem = data => (dispatch, getState) => {
   axios
-    .post(API.ADD_EMPLOYEE, data)
+    .post(API.ADD_ITEM, data, tokenConfig())
     .then(res => {
-      console.log('sucess')
+      console.log(res, 'success')
     })
     .catch(err => {
       console.log(err)
     })
 }
 
-export const updateEmployee = data => (dispatch, getState) => {
-  const empData = {
-    employeeID: data._id,
-    name: data.name,
-    designation: data.designation,
-    email: data.email,
-    phone: data.phone,
-    age: data.age
+export const updateItem = data => (dispatch, getState) => {
+  const itemData = {
+    status: data.status,
+    shippingMark: data.shippingMark,
+    itemName: data.itemName,
+    cbm: data.cbm,
+    kilo: data.kilo,
+    numberOfBox: data.numberOfBox,
+    trackingNumber: data.trackingNumber,
+    notes: data.notes
   }
+
   axios
-    .post(API.UPDATE_EMPLOYEE, empData)
+    .post(API.UPDATE_ITEM + `/${data._id}`, itemData, tokenConfig())
     .then(res => {
-      console.log('sucess')
+      console.log('sucess', res)
     })
     .catch(err => {
       console.log(err)
     })
 }
 
-export const getSpecificEmployee = data => (dispatch, getState) => {
+export const getSpecificItem = data => (dispatch, getState) => {
   axios
-    .post(API.GET_EMPLOYEE, { employeeID: data })
+    .get(API.GET_ITEM + `/${data}`, tokenConfig())
     .then(res => {
       // const addID = (res.data.response['id'] = data)
 
       dispatch({
-        type: ACTION.GET_EMPLOYEE,
+        type: ACTION.GET_ITEM,
         payload: res.data.response
       })
     })
@@ -83,9 +87,9 @@ export const getSpecificEmployee = data => (dispatch, getState) => {
     })
 }
 
-export const deleteEmployee = data => dispatch => {
+export const deleteItem = data => dispatch => {
   axios
-    .post(API.DELETE_EMPLOYEE, data, tokenConfig())
+    .post(API.DELETE_ITEM, data, tokenConfig())
     .then(res => {
       console.log(res, 'success deleted')
     })
@@ -102,9 +106,9 @@ export const setPaginationPage = page => dispatch => {
   })
 }
 
-export const onSearchEmployee = name => dispatch => {
+export const onSearchItem = name => dispatch => {
   dispatch({
-    type: ACTION.SEARCH_EMPLOYEE,
+    type: ACTION.SEARCH_ITEM,
 
     payload: name
   })
