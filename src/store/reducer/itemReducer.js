@@ -3,7 +3,17 @@
 import * as ACTION from '../action/action_type'
 
 const initialState = {
-  selecteditem: '',
+  selecteditem: {
+    status: 'Guangzhou warehouse',
+    shippingMark: '',
+    itemName: '',
+    cbm: 0,
+    kilo: 0,
+    numberOfBox: 0,
+    trackingNumber: '',
+    containerNumber: '',
+    notes: ''
+  },
   item: '',
   query: {
     limit: 20,

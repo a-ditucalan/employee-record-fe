@@ -35,11 +35,13 @@ const H4 = styled.p`
 const Button = styled.button`
   font-size: 16px;
   padding: 10px;
-  background-color: green;
-  border-color: green;
+  background-color: #040084;
+  border-color: #040084;
   margin-top: 10px;
+  color: #fff;
   &:hover {
-    border: 1px solid green;
+    border: 1px solid #040084;
+    color: #040084;
     background-color: transparent;
   }
 `
@@ -78,6 +80,7 @@ const ModalCommon = ({ open, onCloseModal, modalState, getId }) => {
     dispatch(ACTION_ITEM.deleteItem(data))
   }
 
+  console.log(newItem, 'newww')
   return (
     <Modal open={open} onClose={onCloseModal} center>
       {modalState === 'add' ? (
@@ -85,7 +88,10 @@ const ModalCommon = ({ open, onCloseModal, modalState, getId }) => {
           <H4>Status:</H4>
           <Select
             name="status"
+            displayEmpty
+            defaultValue={'Select the value'}
             // value={this.state.age}
+            label="Warehouse"
             onChange={e => onChangeInput(e)}
           >
             <MenuItem value={'Guangzhou warehouse'}>
@@ -199,6 +205,13 @@ const ModalCommon = ({ open, onCloseModal, modalState, getId }) => {
                   value={newItem.trackingNumber}
                   onChange={e => onChangeInput(e)}
                 />
+                <H4>Container Number:</H4>
+                <Input
+                  name="containerNumber"
+                  type="text"
+                  value={newItem.containerNumber || ''}
+                  onChange={e => onChangeInput(e)}
+                />
                 <H4>Notes:</H4>
                 <Input
                   name="notes"
@@ -206,6 +219,7 @@ const ModalCommon = ({ open, onCloseModal, modalState, getId }) => {
                   value={newItem.notes}
                   onChange={e => onChangeInput(e)}
                 />
+
                 <Button
                   // disabled={itemData.seletedItem ? false : true}
                   onClick={onEdit}

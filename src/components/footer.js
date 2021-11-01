@@ -59,7 +59,7 @@ const Footer = () => {
     color: #545d67;
   `
 
-  const InfoText = styled(Link)`
+  const InfoText = styled.p`
     font-weight: 300;
     font-size: 14px;
     margin-bottom: 10px;
@@ -109,10 +109,10 @@ const Footer = () => {
         <ContentItemInfo>
           <InfoWrapper>
             <Title>INFORMATION</Title>
-            <InfoTextLink to="/">HOME</InfoTextLink>
-            <InfoTextLink to="/">ABOUT US</InfoTextLink>
-            <InfoTextLink to="/">SERVICES</InfoTextLink>
-            <InfoTextLink to="/">CONTACT US</InfoTextLink>
+            <InfoTextLink to="/#">HOME</InfoTextLink>
+            <InfoTextLink to="/#">ABOUT US</InfoTextLink>
+            <InfoTextLink to="/#">SERVICES</InfoTextLink>
+            <InfoTextLink to="/#">CONTACT US</InfoTextLink>
           </InfoWrapper>
           <InfoWrapper>
             <Title>CONTACT US</Title>

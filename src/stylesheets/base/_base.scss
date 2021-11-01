@@ -15,9 +15,11 @@ a,h1,h2,h3,p{
   font-family: $font-poppins;
   text-decoration: none;
 }
-
+th,td {
+  font-family: $font-poppins;
+}
 .btn,
-a {
+a, button{
   font-family: $font-poppins;
 
   -webkit-transition: all .2s ease-in-out;

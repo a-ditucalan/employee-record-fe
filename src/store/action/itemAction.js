@@ -58,7 +58,9 @@ export const updateItem = data => (dispatch, getState) => {
     kilo: data.kilo,
     numberOfBox: data.numberOfBox,
     trackingNumber: data.trackingNumber,
-    notes: data.notes
+    notes: data.notes,
+    containerNumber: data.containerNumber,
+    itemData: data.itemDate
   }
 
   axios

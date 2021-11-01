@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
 import * as ACTION_AUTH from '../store/action/authAction'
 import Logo from '../assets/img/bigbox-logo.png'
-
+import { useLocation } from 'react-router-dom'
 const StyledMenu = styled.nav`
   display: flex;
   flex-direction: column;
@@ -116,6 +116,7 @@ const Burger = ({ open, setOpen }) => {
 }
 
 const Header = () => {
+  const location = useLocation()
   const history = useHistory()
   const dispatch = useDispatch()
   const WrapperFlex = styled.div`
@@ -124,6 +125,22 @@ const Header = () => {
     display: flex;
     width: 100%;
     padding: 10px 200px;
+
+    @media (min-width: 1200px) and (max-width: 1300px) {
+      padding: 10px 100px;
+    }
+    @media (max-width: 1199px) {
+      padding: 20px 30px;
+    }
+  `
+
+  const WrapperFlexBlue = styled.div`
+    position: absolute;
+    top: 0;
+    display: flex;
+    width: 100%;
+    padding: 10px 200px;
+    background: #040084;
 
     @media (min-width: 1200px) and (max-width: 1300px) {
       padding: 10px 100px;
@@ -172,40 +189,78 @@ const Header = () => {
     dispatch(ACTION_AUTH.logout())
   }
 
+  console.log(location.pathname, 'anuar')
+
   const [open, setOpen] = useState(false)
   const node = React.useRef()
   return (
-    <WrapperFlex>
-      <div ref={node}>
-        <Burger open={open} setOpen={setOpen} />
-        <Menu open={open} setOpen={setOpen} />
-      </div>
-      <WrapperLogo>
-        <img src={Logo} alt="bigbox-logo" />
-      </WrapperLogo>
-      <WrapperDiv>
-        <TextDiv>
-          <Link to="/">Home</Link>
-        </TextDiv>
-        <TextDiv>
-          <Link to="/">Services</Link>
-        </TextDiv>
-        <TextDiv>
-          <Link to="/">About us</Link>
-        </TextDiv>
-        <TextDiv>
-          <Link to="/login">Login</Link>
-        </TextDiv>
-        <TextDiv>
-          <Link to="/" onClick={onLogout}>
-            logout
-          </Link>
-        </TextDiv>
-        <TextDiv>
-          <Link to="/">Sign up</Link>
-        </TextDiv>
-      </WrapperDiv>
-    </WrapperFlex>
+    <>
+      {location.pathname === '/dashboard' ? (
+        <WrapperFlexBlue>
+          <div ref={node}>
+            <Burger open={open} setOpen={setOpen} />
+            <Menu open={open} setOpen={setOpen} />
+          </div>
+          <WrapperLogo>
+            <img src={Logo} alt="bigbox-logo" />
+          </WrapperLogo>
+          <WrapperDiv>
+            <TextDiv>
+              <Link to="/">Home</Link>
+            </TextDiv>
+            <TextDiv>
+              <Link to="/">Services</Link>
+            </TextDiv>
+            <TextDiv>
+              <Link to="/">About us</Link>
+            </TextDiv>
+            <TextDiv>
+              <Link to="/login">Login</Link>
+            </TextDiv>
+            <TextDiv>
+              <Link to="/" onClick={onLogout}>
+                logout
+              </Link>
+            </TextDiv>
+            <TextDiv>
+              <Link to="/">Sign up</Link>
+            </TextDiv>
+          </WrapperDiv>
+        </WrapperFlexBlue>
+      ) : (
+        <WrapperFlex>
+          <div ref={node}>
+            <Burger open={open} setOpen={setOpen} />
+            <Menu open={open} setOpen={setOpen} />
+          </div>
+          <WrapperLogo>
+            <img src={Logo} alt="bigbox-logo" />
+          </WrapperLogo>
+          <WrapperDiv>
+            <TextDiv>
+              <Link to="/">Home</Link>
+            </TextDiv>
+            <TextDiv>
+              <Link to="/">Services</Link>
+            </TextDiv>
+            <TextDiv>
+              <Link to="/">About us</Link>
+            </TextDiv>
+            <TextDiv>
+              <Link to="/login">Login</Link>
+            </TextDiv>
+            <TextDiv>
+              <Link to="/" onClick={onLogout}>
+                logout
+              </Link>
+            </TextDiv>
+            <TextDiv>
+              <Link to="/">Sign up</Link>
+            </TextDiv>
+          </WrapperDiv>
+        </WrapperFlex>
+      )}
+    </>
   )
 }
 

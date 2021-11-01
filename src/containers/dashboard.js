@@ -25,11 +25,14 @@ const H4 = styled.p`
 const Button = styled.button`
   font-size: 16px;
   padding: 10px;
-  background-color: green;
-  border-color: green;
+  background-color: #040084;
+  border-color: #040084;
   margin-top: 10px;
+  color: #fff;
+  font-weight: 500;
   &:hover {
-    border: 1px solid green;
+    border: 1px solid #040084;
+    color: #040084;
     background-color: transparent;
   }
 `
@@ -58,6 +61,10 @@ const Input = styled.input`
 
 const SearchWrapper = styled.div`
   display: flex;
+`
+
+const WrapperFlex = styled.div`
+  margin-top: 150px;
 `
 const Dashboard = () => {
   const [open, setOpen] = useState(false)
@@ -93,33 +100,34 @@ const Dashboard = () => {
   }, [auth.token, dispatch, history])
 
   return (
-    <div>
-      <Grid container spacing={1}>
-        <Button onClick={() => handleClickOpen()}>Shipment Items</Button>
-        {itemData.item ? (
-          <Table
-            data={itemData.item}
-            title={[
-              'Shipping Mark',
-              'Tracking Number',
-              'Item Name',
-              'CBM',
-              'Kilo',
-              'Status'
-            ]}
-            onGetId={onGetId}
-          />
-        ) : (
-          <> </>
-        )}
-
-        <ModalCommon
-          open={open}
-          onCloseModal={handleClose}
-          modalState={modalState}
+    <WrapperFlex>
+      <Button onClick={() => handleClickOpen()}>Shipment Items</Button>
+      {itemData.item ? (
+        <Table
+          data={itemData.item}
+          title={[
+            'Shipping Mark',
+            'Container Number',
+            'Tracking Number',
+            'Item Name',
+            'CBM',
+            'Kilo',
+            'Date',
+            'Status',
+            'Notes'
+          ]}
+          onGetId={onGetId}
         />
-      </Grid>
-    </div>
+      ) : (
+        <> </>
+      )}
+
+      <ModalCommon
+        open={open}
+        onCloseModal={handleClose}
+        modalState={modalState}
+      />
+    </WrapperFlex>
   )
 }
 
