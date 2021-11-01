@@ -2,9 +2,10 @@ const express = require('express')
 const mongoose = require('mongoose')
 const morgan = require('morgan')
 const bodyParser = require('body-parser')
-const EmployeeRoute = require('./routes/employee')
-const AuthRoute = require('./routes/auth')
-mongoose.connect('mongodb://localhost:27017/testdb',{useNewUrlParser: true, useUnifiedTopology: true})
+const ItemRoute = require('./routes/item')
+const AuthRoute = require('./routes/user')
+const StatusRoute = require('./routes/status')
+mongoose.connect('mongodb://localhost:27017/bigboxdb',{useNewUrlParser: true, useUnifiedTopology: true})
 
 const db = mongoose.connection
 mongoose.Promise = global.Promise
@@ -19,9 +20,10 @@ db.once('open',()=> {
 const app = express()
 
 app.use(morgan('dev'))
-
-app.use(bodyParser.urlencoded({extended: true}))
-app.use(bodyParser.json())
+app.use(express.urlencoded({extended: true})); 
+app.use(express.json());
+// app.use(bodyParser.urlencoded({extended: true}))
+// app.use(bodyParser.json())
 
 app.use((req, res, next) => {
   res.header("Access-Control-allow-Origin", "*")
@@ -43,5 +45,12 @@ app.listen(PORT,()=> {
   console.log(`Server is running on port ${PORT}`)
 })
 
-app.use('/api/employee',EmployeeRoute)
+app.use('/api/item',ItemRoute)
+app.use('/api/status',StatusRoute)
 app.use('/api',AuthRoute)
+app.use((err, req, res, next) => {
+  res.status(err.status || 500).json({
+    message: err.message || "Something went wrong. Please try again",
+    status: err.status || 500
+  });
+});

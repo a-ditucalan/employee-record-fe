@@ -3,6 +3,7 @@ const bcrypt = require('bcryptjs')
  const jwt = require('jsonwebtoken')
 
  const register = (req,res,next)=> {
+
    bcrypt.hash(req.body.password,10,function(err,hashedPass){
        if(err){
          res.json({
@@ -13,7 +14,8 @@ const bcrypt = require('bcryptjs')
         name: req.body.name,
         email: req.body.email,
         phone: req.body.phone,
-        password: hashedPass
+        password: hashedPass,
+        role: req.body.role
       })
    
       user.save().then(user=> {
@@ -44,10 +46,10 @@ const bcrypt = require('bcryptjs')
               })
             }
             if(result){
-              let token = jwt.sign({name: user.name}, 'fsdfsd32',{expiresIn: '1h'})
+              let token = jwt.sign({name: user.name}, 'fsdfsd32')
                 res.json({
                   message: 'Login Successful!',
-                  token
+                  token,user_id: user.id, user_role: user.role
                 })
             } else {
               res.json({
@@ -62,7 +64,22 @@ const bcrypt = require('bcryptjs')
    })
 
  }
+
+ //all employee with pagination
+const userPagination = (req,res,next) => {
+  User.find().then(response => {
+    res.json({count: response.length,response})
+  }).catch(error => {
+    res.json({message: 'An error Occured!'})
+  })
+}
+ const logout = (req,res,next) => {
+   res.localStorage('jwt','',{maxAge: 1})
+   res.redirect('/')
+ }
  module.exports = {
   register,
-  login
+  login,
+  logout,
+  userPagination,
  }
