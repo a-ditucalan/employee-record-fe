@@ -16,7 +16,7 @@ const initialState = {
   },
   item: '',
   query: {
-    limit: 20,
+    limit: 10,
     page: 1,
     search: ''
   },
@@ -41,6 +41,7 @@ export default function(state = initialState, action) {
         itemAll: action.payload
       }
     case ACTION.PAGINATION:
+      console.log(action.payload, 'pageeee')
       return {
         ...state,
         query: {

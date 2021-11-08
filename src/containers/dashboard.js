@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import { Link, useHistory } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import ReactPaginate from 'react-paginate'
+import Pagination from '@material-ui/lab/Pagination'
 import * as ACTION from '../store/action/authAction'
 import * as ACTION_ITEM from '../store/action/itemAction'
 // import ModalCommon from '../common/ModalCommon'
 import { Grid } from '@material-ui/core'
 import Table from '../common/Table'
-import Pagination from '@material-ui/lab/Pagination'
+
 import styled from 'styled-components'
 import TextField from '@material-ui/core/TextField'
 import Dialog from '@material-ui/core/Dialog'
@@ -27,7 +27,7 @@ const Button = styled.button`
   padding: 10px;
   background-color: #040084;
   border-color: #040084;
-  margin-top: 10px;
+
   color: #fff;
   font-weight: 500;
   &:hover {
@@ -51,20 +51,28 @@ const ButtonSearch = styled.button`
   }
 `
 
+const SearchWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`
+
+const SearchContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+`
+
+const WrapperFlex = styled.div`
+  margin: 150px 20px 20px 20px;
+`
+
 const Input = styled.input`
   border: 1px solid #000;
   font-size: 16px;
   padding: 10px;
   margin-top: 10px;
-  margin-bottom: 20px;
-`
-
-const SearchWrapper = styled.div`
-  display: flex;
-`
-
-const WrapperFlex = styled.div`
-  margin-top: 150px;
 `
 const Dashboard = () => {
   const [open, setOpen] = useState(false)
@@ -75,6 +83,13 @@ const Dashboard = () => {
   const history = useHistory()
   const auth = useSelector(state => state.auth)
   const itemData = useSelector(state => state.item)
+  const pagination = useSelector(state => state.item)
+
+  const onChangeInput = e => {
+    const value = e.target.value
+    setSearch(value)
+    dispatch(ACTION_ITEM.onSearchItem(value))
+  }
 
   const handleClickOpen = () => {
     setOpen(true)
@@ -90,34 +105,61 @@ const Dashboard = () => {
     setModalState('edit')
     setOpen(true)
   }
+  const handlePagination = (event, page) => {
+    dispatch(ACTION_ITEM.setPaginationPage(page))
+  }
 
-  console.log(modalState, 'STATE')
   useEffect(() => {
     if (!auth.token) {
       history.push('/')
     }
     dispatch(ACTION_ITEM.getItems())
+    dispatch(ACTION_ITEM.getItemAll())
   }, [auth.token, dispatch, history])
 
   return (
     <WrapperFlex>
-      <Button onClick={() => handleClickOpen()}>Shipment Items</Button>
+      <SearchContainer>
+        <Button onClick={() => handleClickOpen()}>Shipment Items</Button>
+
+        <SearchWrapper>
+          <H4>Search: &nbsp;</H4>
+          <Input
+            name="search"
+            type="text"
+            value={search}
+            onChange={e => onChangeInput(e)}
+          />
+        </SearchWrapper>
+      </SearchContainer>
       {itemData.item ? (
-        <Table
-          data={itemData.item}
-          title={[
-            'Shipping Mark',
-            'Container Number',
-            'Tracking Number',
-            'Item Name',
-            'CBM',
-            'Kilo',
-            'Date',
-            'Status',
-            'Notes'
-          ]}
-          onGetId={onGetId}
-        />
+        <>
+          <Table
+            data={itemData.item}
+            title={[
+              'Shipping Mark',
+              'Container Number',
+              'Tracking Number',
+              'Item Name',
+              'CBM',
+              'Kilo',
+              'Date',
+              'Status',
+              'Notes'
+            ]}
+            onGetId={onGetId}
+          />
+          <Pagination
+            count={
+              itemData.itemAll &&
+              Math.ceil(
+                pagination.itemAll.length / parseInt(pagination.query.limit)
+              )
+            }
+            onChange={handlePagination}
+            page={pagination && pagination.query.page}
+          />
+        </>
       ) : (
         <> </>
       )}

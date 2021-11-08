@@ -5,7 +5,7 @@ import * as API from '../../utils/constant'
 
 export const getItems = () => (dispatch, getState) => {
   const { page, limit, search } = getState().item.query
-
+  console.log(page, 'consolee')
   axios
     .get(
       API.GET_ALL_ITEM + `/?limit=${limit}&page=${page}&search=${search}`,
@@ -14,6 +14,21 @@ export const getItems = () => (dispatch, getState) => {
     .then(res => {
       dispatch({
         type: ACTION.GET_ALL_ITEM,
+
+        payload: res.data.response
+      })
+    })
+    .catch(err => {
+      console.log(err)
+    })
+}
+
+export const getItemAll = () => (dispatch, getState) => {
+  axios
+    .get(API.GET_ALL_ITEMS, tokenConfig(getState))
+    .then(res => {
+      dispatch({
+        type: ACTION.GET_ALL_ITEMS,
 
         payload: res.data.response
       })
@@ -106,6 +121,7 @@ export const setPaginationPage = page => dispatch => {
 
     payload: page
   })
+  dispatch(getItems())
 }
 
 export const onSearchItem = name => dispatch => {
@@ -114,6 +130,7 @@ export const onSearchItem = name => dispatch => {
 
     payload: name
   })
+  dispatch(getItems())
 }
 export const tokenConfig = getState => {
   // Get token from local storage
