@@ -1,7 +1,7 @@
 /* eslint-disable no-undef */
 /* eslint-disable no-case-declarations */
 import * as ACTION from '../action/action_type'
-
+import moment from 'moment'
 const initialState = {
   selecteditem: {
     status: 'China warehouse',
@@ -49,6 +49,20 @@ export default function(state = initialState, action) {
         query: {
           ...state.query,
           page: action.payload
+        }
+      }
+    case ACTION.SEARCH_DATE:
+      console.log(state.query, 'QUERRYY')
+      return {
+        ...state,
+        query: {
+          ...state.query,
+          startDate: moment(action.payload[0].startDate, 'YYYY-MM-DD').format(
+            'YYYY-MM-DD'
+          ),
+          endDate: moment(action.payload[0].endDate, 'YYYY-MM-DD').format(
+            'YYYY-MM-DD'
+          )
         }
       }
     case ACTION.SEARCH_ITEM:

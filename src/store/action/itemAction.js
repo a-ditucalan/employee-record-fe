@@ -77,7 +77,7 @@ export const updateItem = data => (dispatch, getState) => {
     trackingNumber: data.trackingNumber,
     notes: data.notes,
     containerNumber: data.containerNumber,
-    itemData: data.itemDate
+    itemDate: Date.now()
   }
 
   axios
@@ -129,6 +129,14 @@ export const setPaginationPage = page => dispatch => {
 export const onSearchItem = name => dispatch => {
   dispatch({
     type: ACTION.SEARCH_ITEM,
+
+    payload: name
+  })
+  dispatch(getItems())
+}
+export const checkDateRange = name => dispatch => {
+  dispatch({
+    type: ACTION.SEARCH_DATE,
 
     payload: name
   })

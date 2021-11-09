@@ -3,7 +3,8 @@ import { HashRouter, Route, Switch } from 'react-router-dom'
 import { hot } from 'react-hot-loader'
 import 'react-toastify/dist/ReactToastify.css'
 import { ToastContainer, Flip } from 'react-toastify'
-
+import 'react-date-range/dist/styles.css' // main style file
+import 'react-date-range/dist/theme/default.css' // theme css file
 import Header from './components/header'
 import Footer from './components/footer'
 import Home from './containers/home'

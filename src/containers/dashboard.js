@@ -4,6 +4,10 @@ import { useDispatch, useSelector } from 'react-redux'
 import Pagination from '@material-ui/lab/Pagination'
 import * as ACTION from '../store/action/authAction'
 import * as ACTION_ITEM from '../store/action/itemAction'
+import { DateRangePicker } from 'react-date-range'
+import { addDays } from 'date-fns'
+import moment from 'moment'
+
 // import ModalCommon from '../common/ModalCommon'
 import { Grid } from '@material-ui/core'
 import Table from '../common/Table'
@@ -117,11 +121,43 @@ const Dashboard = () => {
     dispatch(ACTION_ITEM.getItemAll())
   }, [auth.token, dispatch, history])
 
+  const [date, setDate] = useState([
+    {
+      startDate: new Date(),
+      endDate: addDays(new Date(), 7),
+      key: 'selection'
+    }
+  ])
+
+  const [openDate, setOpenDate] = useState(false)
+  const handleClickDate = () => {
+    setOpenDate(!openDate)
+  }
+  const onSelectDate = date => {
+    setDate(date)
+
+    dispatch(ACTION_ITEM.checkDateRange(date))
+  }
+
   return (
     <WrapperFlex>
       <SearchContainer>
         <Button onClick={() => handleClickOpen()}>Shipment Items</Button>
-
+        <Button onClick={() => handleClickDate()}>Open Date Picker</Button>
+        {openDate && (
+          <SearchWrapper>
+            <DateRangePicker
+              onChange={item => onSelectDate([item.selection])}
+              showSelectionPreview={true}
+              moveRangeOnFirstSelection={false}
+              months={2}
+              ranges={date}
+              direction="horizontal"
+              preventSnapRefocus={true}
+              calendarFocus="backwards"
+            />
+          </SearchWrapper>
+        )}
         <SearchWrapper>
           <H4>Search: &nbsp;</H4>
           <Input
