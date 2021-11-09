@@ -19,7 +19,9 @@ const initialState = {
   query: {
     limit: 10,
     page: 1,
-    search: ''
+    search: '',
+    startDate: '',
+    endDate: ''
   },
   itemAll: ''
 }

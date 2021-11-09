@@ -1,4 +1,4 @@
-const API_URL2 = 'http://localhost:5000/api/'
+const API_URL1 = 'http://localhost:5000/api/'
 const API_URL = 'https://bigbox-backend.herokuapp.com/api/'
 
 export const GET_ALL_ITEM = API_URL + 'item'
