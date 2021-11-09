@@ -4,11 +4,12 @@ import * as ACTION from './action_type'
 import * as API from '../../utils/constant'
 
 export const getItems = () => (dispatch, getState) => {
-  const { page, limit, search } = getState().item.query
-  console.log(page, 'consolee')
+  const { page, limit, search, startDate, endDate } = getState().item.query
+
   axios
     .get(
-      API.GET_ALL_ITEM + `/?limit=${limit}&page=${page}&search=${search}`,
+      API.GET_ALL_ITEM +
+        `/?limit=${limit}&page=${page}&search=${search}&startDate=${startDate}&endDate=${endDate}`,
       tokenConfig(getState)
     )
     .then(res => {

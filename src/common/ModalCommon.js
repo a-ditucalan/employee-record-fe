@@ -82,7 +82,6 @@ const ModalCommon = ({ open, onCloseModal, modalState, getId }) => {
     dispatch(ACTION_ITEM.deleteItem(data))
   }
 
- 
   return (
     <Modal open={open} onClose={onCloseModal} center>
       {modalState === 'add' ? (
