@@ -65,11 +65,13 @@ const ModalCommon = ({ open, onCloseModal, modalState, getId }) => {
 
   const onSave = () => {
     dispatch(ACTION_ITEM.addItem(newItem))
+    dispatch(ACTION_ITEM.getItems())
     onCloseModal()
   }
 
   const onEdit = () => {
     dispatch(ACTION_ITEM.updateItem(newItem))
+    dispatch(ACTION_ITEM.getItems())
     onCloseModal()
   }
 
@@ -80,7 +82,7 @@ const ModalCommon = ({ open, onCloseModal, modalState, getId }) => {
     dispatch(ACTION_ITEM.deleteItem(data))
   }
 
-  console.log(newItem, 'newww')
+ 
   return (
     <Modal open={open} onClose={onCloseModal} center>
       {modalState === 'add' ? (
@@ -94,15 +96,25 @@ const ModalCommon = ({ open, onCloseModal, modalState, getId }) => {
             label="Warehouse"
             onChange={e => onChangeInput(e)}
           >
-            <MenuItem value={'Guangzhou warehouse'}>
-              Guangzhou warehouse
-            </MenuItem>
-            <MenuItem value={'Yiwu warehouse'}>Yiwu warehouse</MenuItem>
+            <MenuItem value={'China warehouse'}>China warehouse</MenuItem>
             <MenuItem value={'In Transit to PH'}>In Transit to PH</MenuItem>
             <MenuItem value={'Custom Clearance'}>Custom Clearance</MenuItem>
             <MenuItem value={'Bulacan Warehouse'}>Bulacan Warehouse</MenuItem>
           </Select>
-
+          <H4>Warehouse:</H4>
+          <Select
+            name="warehouse"
+            displayEmpty
+            defaultValue={'Select the value'}
+            // value={this.state.age}
+            label="Warehouse"
+            onChange={e => onChangeInput(e)}
+          >
+            <MenuItem value={'Yiwu warehouse'}>Yiwu warehouse</MenuItem>
+            <MenuItem value={'Guangzhou warehouse'}>
+              Guangzhou warehouse
+            </MenuItem>
+          </Select>
           <H4>Shipping Mark:</H4>
           <Input
             name="shippingMark"
@@ -148,10 +160,8 @@ const ModalCommon = ({ open, onCloseModal, modalState, getId }) => {
                   renderValue={value => value}
                   onChange={e => onChangeInput(e)}
                 >
-                  <MenuItem value={'Guangzhou warehouse'}>
-                    Guangzhou warehouse
-                  </MenuItem>
-                  <MenuItem value={'Yiwu warehouse'}>Yiwu warehouse</MenuItem>
+                  <MenuItem value={'China warehouse'}>China warehouse</MenuItem>
+
                   <MenuItem value={'In Transit to PH'}>
                     In Transit to PH
                   </MenuItem>
@@ -162,7 +172,20 @@ const ModalCommon = ({ open, onCloseModal, modalState, getId }) => {
                     Bulacan Warehouse
                   </MenuItem>
                 </Select>
-
+                <H4>Warehouse:</H4>
+                <Select
+                  name="warehouse"
+                  displayEmpty
+                  defaultValue={'Select the value'}
+                  // value={this.state.age}
+                  label="Warehouse"
+                  onChange={e => onChangeInput(e)}
+                >
+                  <MenuItem value={'Yiwu warehouse'}>Yiwu warehouse</MenuItem>
+                  <MenuItem value={'Guangzhou warehouse'}>
+                    Guangzhou warehouse
+                  </MenuItem>
+                </Select>
                 <H4>Shipping Mark:</H4>
                 <Input
                   name="shippingMark"

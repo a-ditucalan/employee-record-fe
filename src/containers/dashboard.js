@@ -139,6 +139,7 @@ const Dashboard = () => {
             title={[
               'Shipping Mark',
               'Container Number',
+              'Warehouse',
               'Tracking Number',
               'Item Name',
               'CBM',

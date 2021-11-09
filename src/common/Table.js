@@ -79,6 +79,7 @@ const TableMarkup = ({ titles, data, onClick }) => (
         <tr key={index} onClick={onClick} name={item._id}>
           <td>{item.shippingMark}</td>
           <td>{item.containerNumber}</td>
+          <td>{item.warehouse}</td>
           <td>{item.trackingNumber}</td>
           <td>{item.itemName}</td>
           <td>{item.cbm}</td>

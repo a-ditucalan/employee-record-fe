@@ -4,7 +4,8 @@ import * as ACTION from '../action/action_type'
 
 const initialState = {
   selecteditem: {
-    status: 'Guangzhou warehouse',
+    status: 'China warehouse',
+    warehouse: '',
     shippingMark: '',
     itemName: '',
     cbm: 0,
@@ -41,7 +42,6 @@ export default function(state = initialState, action) {
         itemAll: action.payload
       }
     case ACTION.PAGINATION:
-      console.log(action.payload, 'pageeee')
       return {
         ...state,
         query: {
@@ -50,7 +50,6 @@ export default function(state = initialState, action) {
         }
       }
     case ACTION.SEARCH_ITEM:
-      console.log(action.payload, 'paylos')
       return {
         ...state,
         query: {

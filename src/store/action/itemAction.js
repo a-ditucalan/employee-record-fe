@@ -68,6 +68,7 @@ export const updateItem = data => (dispatch, getState) => {
   const itemData = {
     status: data.status,
     shippingMark: data.shippingMark,
+    warehouse: data.warehouse,
     itemName: data.itemName,
     cbm: data.cbm,
     kilo: data.kilo,
